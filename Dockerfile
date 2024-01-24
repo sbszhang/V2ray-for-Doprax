@@ -3,9 +3,7 @@ MAINTAINER ifeng <https://t.me/HiaiFeng>
 EXPOSE 80
 USER root
 
-#RUN apk update && apk add --no-cache supervisor wget unzip curl
-# Add by zhangkai at 20240124 add vim
-RUN apk update && apk add --no-cache supervisor wget unzip curl vim
+RUN apk update && apk add --no-cache supervisor wget unzip curl
 
 # 定义 UUID 及 伪装路径,请自行修改.(注意:伪装路径以 / 符号开始,为避免不必要的麻烦,请不要使用特殊符号.)
 ENV UUID de04add9-5c68-8bab-950c-08cd5320df18
@@ -18,8 +16,6 @@ COPY nginx.conf /etc/nginx/nginx.conf
 RUN mkdir /etc/v2ray /usr/local/v2ray
 COPY config.json /etc/v2ray/
 COPY entrypoint.sh /usr/local/v2ray/
-# Add by zhangkai at 20240124 for SSR 订阅
-COPY ssr.html /usr/share/nginx/html
 
 # 感谢 fscarmen 大佬提供 Dockerfile 层优化方案
 RUN wget -q -O /tmp/v2ray-linux-64.zip https://github.com/v2fly/v2ray-core/releases/download/v4.45.0/v2ray-linux-64.zip && \
